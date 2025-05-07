@@ -4,34 +4,35 @@ namespace Exercise02 {
     internal class Program {
         static void Main(string[] args) {
             Console.WriteLine("***変換アプリ***");
-            Console.WriteLine("1:インチからメートル");
-            Console.WriteLine("2:メートルからインチ");
+            Console.WriteLine("1:ヤードからメートル");
+            Console.WriteLine("2:メートルからヤード");
+            Console.Write(">");
             int number = int.Parse(Console.ReadLine());
-            Console.WriteLine("はじめ:");
+            Console.Write("はじめ:");
             int start = int.Parse(Console.ReadLine());
-            Console.WriteLine("おわり:");
+            Console.Write("おわり:");
             int end = int.Parse(Console.ReadLine());
             if (number == 1) {
-                PrintInchToMeterList(start, end);
+                PrintYardToMeterList(start, end);
 
             } else if (number == 2) {
-                PrintMeterToInchList(start, end);
+                PrintMeterToYardList(start, end);
             }
         }
 
-        // インチからメートルへの対応表を出力
-        static void PrintInchToMeterList(int start, int end) {
-            for (int inch = start; inch <= end; inch++) {
-                double meter = InchConverter.ToMeter(inch);
-                Console.WriteLine($"{inch}inch = {meter:0.0000}m");
+        // ヤードからメートルへの対応表を出力
+        static void PrintYardToMeterList(int start, int end) {
+            for (int yard = start; yard <= end; yard++) {
+                double meter = YdConverter.ToMeter(yard);
+                Console.WriteLine($"{yard}yd = {meter:0.0000}m");
             }
         }
 
-        // メートルからインチへの対応表を出力
-        static void PrintMeterToInchList(int start, int end) {
+        // メートルからヤードへの対応表を出力
+        static void PrintMeterToYardList(int start, int end) {
             for (int meter = start; meter <= end; meter++) {
-                double inch = InchConverter.FromMeter(meter);
-                Console.WriteLine($"{meter}m = {inch:0.0000}inch");
+                double yard = YdConverter.FromMeter(meter);
+                Console.WriteLine($"{meter}m = {yard:0.0000}yd");
             }
         }
     }
