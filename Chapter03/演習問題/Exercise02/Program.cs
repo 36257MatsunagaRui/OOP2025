@@ -43,7 +43,7 @@ namespace Exercise02 {
 
             do {
                 Console.Write("都市名:");
-                var name = Console.ReadLine();
+                var name = Console.ReadLine(); //入力処理
                 if (string.IsNullOrEmpty(name))
                     break;
                 int index = names.FindIndex(s => s == name);
@@ -52,7 +52,9 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_2(List<string> names) {
-            
+            //names.Count(ここにラムダ式を記述する
+            var count = names.Count(s => s.Contains('o'));
+            Console.WriteLine("小文字の'o'が含まれている都市名:" + count);
         }
 
         private static void Exercise2_3(List<string> names) {
