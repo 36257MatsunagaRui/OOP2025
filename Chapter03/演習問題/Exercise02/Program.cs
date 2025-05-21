@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
 using System.Reflection.Metadata.Ecma335;
 
 namespace Exercise02 {
@@ -18,6 +19,7 @@ namespace Exercise02 {
             Console.WriteLine();
 
             Console.WriteLine("***** 3.2.3 *****");
+            Console.WriteLine("小文字の'o'が含まれている都市名");
             Exercise2_3(cities);
             Console.WriteLine();
 
@@ -58,11 +60,25 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_3(List<string> names) {
-            
+            var selected = names.Where(s => s.Contains('o')).ToArray();
+            foreach (var name in selected) {
+                Console.WriteLine(name);
+            }
         }
 
         private static void Exercise2_4(List<string> names) {
-            
+            var selected = names.Where(s => s.StartsWith('B'))
+                .Select(s => s.Length);
+            var obj = names.Where(s => s.StartsWith('B'))
+                .Select(s => new { s, s.Length });
+
+            foreach (var len in selected) {
+                Console.WriteLine("'B'で始まる都市名の文字数:" + len);
+            }
+
+            foreach (var date in obj) {
+                Console.WriteLine(date.s + ":" + date.Length + "文字");
+            }
         }
     }
 }
