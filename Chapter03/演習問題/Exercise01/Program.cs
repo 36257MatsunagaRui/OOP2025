@@ -48,7 +48,9 @@ namespace Exercise01 {
         //数値を2倍にして出力する
         private static void Exercise4(List<int> numbers) {
             numbers.Select(n => n * 2).ToList().ForEach(Console.WriteLine);
-            /*foreach (var number in doublenum) {
+            /*numbers.Select(n => n * 2).ToList().ForEach(Console.WriteLine);
+            var doubleNum = numbers.Select(n => n * 2).ToList();
+            foreach (var number in doubleNum) {
                 Console.WriteLine(number);
             }*/
         }
