@@ -38,9 +38,14 @@ namespace Exercise01 {
 
         //値が50以上の要素を列挙し出力する
         private static void Exercise3(List<int> numbers) {
-            numbers.Where(n => n >= 50).ToList().ForEach(Console.WriteLine);
-            /*var selected = numbers.Where(n => n >= 50);
-            foreach (var number in selected) {
+            numbers.Where(n => n > 50).ToList().ForEach(Console.WriteLine); //即時実行
+
+            /*foreach (var num in numbers.Where(n => n > 50)) {
+                Console.WriteLine(num);
+            }
+
+            var datas = numbers.Where(n => n > 50);
+            foreach (var number in datas) {
                 Console.WriteLine(number);
             }*/
         }
@@ -48,8 +53,8 @@ namespace Exercise01 {
         //数値を2倍にして出力する
         private static void Exercise4(List<int> numbers) {
             numbers.Select(n => n * 2).ToList().ForEach(Console.WriteLine);
-            /*numbers.Select(n => n * 2).ToList().ForEach(Console.WriteLine);
-            var doubleNum = numbers.Select(n => n * 2).ToList();
+
+            /*var doubleNum = numbers.Select(n => n * 2).ToList();
             foreach (var number in doubleNum) {
                 Console.WriteLine(number);
             }*/
