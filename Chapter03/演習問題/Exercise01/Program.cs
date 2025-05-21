@@ -33,20 +33,21 @@ namespace Exercise01 {
 
         //数値を2.0で割って出力する
         private static void Exercise2(List<int> numbers) {
-            numbers.ForEach(s => Console.WriteLine(s / 2.0));
+            numbers.ForEach(n => Console.WriteLine(n / 2.0));
         }
 
         //値が50以上の要素を列挙し出力する
         private static void Exercise3(List<int> numbers) {
-            numbers.Where(s => s >= 50).ToList().ForEach(Console.WriteLine);
-            /*foreach (var number in selected) {
+            numbers.Where(n => n >= 50).ToList().ForEach(Console.WriteLine);
+            /*var selected = numbers.Where(n => n >= 50);
+            foreach (var number in selected) {
                 Console.WriteLine(number);
             }*/
         }
 
         //数値を2倍にして出力する
         private static void Exercise4(List<int> numbers) {
-            numbers.Select(s => s * 2).ToList().ForEach(Console.WriteLine);
+            numbers.Select(n => n * 2).ToList().ForEach(Console.WriteLine);
             /*foreach (var number in doublenum) {
                 Console.WriteLine(number);
             }*/
