@@ -15,18 +15,21 @@ namespace Exercise01 {
         }
 
         private static void Exercise1(List<string> langs) {
+            //foreach文
             foreach (var lang in langs) {
                 if (lang.Contains('S'))
                     Console.WriteLine(lang);
             }
-            Console.WriteLine("");
+            Console.WriteLine("");　//改行
 
+            //for文
             for (var i = 0; i < langs.Count; i++) {
                 if (langs[i].Contains('S'))
                     Console.WriteLine(langs[i]);
             }
-            Console.WriteLine("");
+            Console.WriteLine(""); //改行
 
+            //while文
             int index = 0;
             while (index < langs.Count) {
                 if (langs[index].Contains('S'))
