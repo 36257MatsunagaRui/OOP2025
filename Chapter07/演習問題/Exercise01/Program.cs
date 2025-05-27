@@ -39,22 +39,21 @@ namespace Exercise01 {
         private static void Exercise3(int[] numbers) {
             numbers.Select(n => n.ToString("D3")).ToList().ForEach(Console.WriteLine);
 
-            /*foreach (var num in numbers.Select(n => n.ToString("D3"))) {
+            /*foreach (var num in numbers.Select(n => n.ToString("000"))) {
                 Console.WriteLine(num);
             }*/
         }
 
         private static void Exercise4(int[] numbers) {
-            numbers.OrderBy(n => n).Take(3).ToList().ForEach(Console.WriteLine);
+            numbers.Order().Take(3).ToList().ForEach(Console.WriteLine);
 
-            /*foreach (var sortednum in numbers.OrderBy(n => n).Take(3)) {
-                Console.WriteLine(sortednum);
+            /*foreach (var num in numbers.Order().Take(3)) {
+                Console.WriteLine(num);
             }*/
         }
 
         private static void Exercise5(int[] numbers) {
-            var results = numbers.Distinct().Where(n => n > 10).Count();
-            Console.WriteLine(results);
+            Console.WriteLine(numbers.Distinct().Where(n => n > 10).Count());
         }
     }
 }
