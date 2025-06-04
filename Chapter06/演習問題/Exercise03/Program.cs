@@ -21,6 +21,50 @@ namespace Exercise03 {
 
             Console.WriteLine("6.3.5");
             Exercise5(text);
+
+            Console.WriteLine("6.3.99");
+            Exercise6(text);
+        }
+
+        //アルファベットの数をカウントして表示する
+        private static void Exercise6(string text) {
+            var str = text.ToLower().Replace(" ", "");
+
+            //'a'から順にカウントして出力
+            for (char ch = 'a'; ch <= 'z'; ch++) {
+                Console.WriteLine($"{ch}:{text.Count(tc => tc == ch)}");
+            }
+            Console.WriteLine(); //改行
+
+            //配列で集計
+            var array = Enumerable.Repeat(0, 26).ToArray();
+
+            foreach (var alph in str) {
+                array[alph - 'a']++;
+            }
+
+            for (char ch = 'a'; ch <= 'z'; ch++) {
+                Console.WriteLine($"{ch}:{array[ch - 'a']}");
+            }
+
+            /*辞書で集計
+            var alphDicCount = Enumerable.Range('a', 26)
+                                .ToDictionary(num => ((char)num).ToString(),num => 0);
+            foreach (var alph in str) {
+                alphDicCount[alph.ToString()]++;
+            }
+
+            foreach (var item in alphDicCount) {
+                Console.WriteLine($"{item.Key}:{item.Value}");
+            }*/
+
+            /*var counts = text.GroupBy(s => char.ToLower(s))
+                             .Select(group => new { letter = group.Key, count = group.Count() })
+                             .OrderBy(s => s.letter).ToArray();
+
+            foreach (var str in counts) {
+                Console.WriteLine($"{str.letter}:{str.count}");
+            }*/
         }
 
         private static void Exercise1(string text) {
