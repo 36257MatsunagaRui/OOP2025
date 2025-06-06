@@ -24,9 +24,9 @@ namespace Exercise01 {
         //5.1.3
         public YearMonth AddOneMonth() {
             if (Month == 12) {
-                return new YearMonth(Year + 1, 1);
+                return new YearMonth(Year + 1, 1); //Monthが12月
             } else {
-                return new YearMonth(Year, Month + 1);
+                return new YearMonth(Year, Month + 1); //Monthが12月以外
             }
         }
 
