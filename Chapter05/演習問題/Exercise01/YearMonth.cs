@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Exercise01 {
     //5.1.1
+    //public record YearMonth(int Year, int Month) {
     public record YearMonth(int year, int month) {
         public int Year { get; init; } = year;
         public int Month { get; init; } = month;
