@@ -1,4 +1,5 @@
 ﻿using Exercise01;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Exercise02 {
     public class Program {
@@ -32,18 +33,28 @@ namespace Exercise02 {
 
         //5.2.3
         //ここにメソッドを作成【メソッド名：FindFirst21C】
-        //public FindFirst21C() {
-
-        //}
+        private static YearMonth? FindFirst21C(YearMonth[] ymCollection) {
+            foreach (var ym in ymCollection) {
+                if (ym.Is21Century)
+                    return ym;
+            }
+            return null;
+        }
 
         //5.2.4
         private static void Exercise4(YearMonth[] ymCollection) {
-            
+            if (FindFirst21C(ymCollection) == null) {
+                Console.WriteLine("21世紀のデータはありません");
+            } else {
+                Console.WriteLine(FindFirst21C(ymCollection).Year);
+            }
         }
 
         //5.2.5
         private static void Exercise5(YearMonth[] ymCollection) {
-            
+            var array = ymCollection.Select(ym => ym.AddOneMonth()).ToArray();
+            foreach (var ym in array)
+                Console.WriteLine(ym);
         }
     }
 }
