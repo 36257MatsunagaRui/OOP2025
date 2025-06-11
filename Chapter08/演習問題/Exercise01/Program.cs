@@ -18,7 +18,7 @@ namespace Exercise01 {
             var dict = new Dictionary<char, int>();
 
             //1文字取り出す→大文字に変換
-            foreach (var ch in text.ToUpper().OrderBy(c => c)) {
+            foreach (var ch in text.ToUpper()) {
                 if ('A' <= ch && ch <= 'Z') {
                     if (dict.ContainsKey(ch)) {
                         dict[ch]++;
@@ -28,7 +28,7 @@ namespace Exercise01 {
                 }     
             }
 
-            foreach (var (key, value) in dict) {
+            foreach (var (key, value) in dict.OrderBy(c => c.Key)) {
                 Console.WriteLine($"'{key}':{value}");
             }
         }
