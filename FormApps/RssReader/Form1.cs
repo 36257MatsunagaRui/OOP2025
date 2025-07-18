@@ -44,7 +44,21 @@ namespace RssReader {
         //タイトルを選択したときに呼ばれるイベントハンドラ
         private void lbTitles_Click(object sender, EventArgs e) {
             int n = lbTitles.SelectedIndex;
-            webView21.Source = new Uri(items[n].Link);
+            wvRssLink.Source = new Uri(items[n].Link);
+        }
+
+        //ブラウザフォワード
+        private void btForward_Click(object sender, EventArgs e) {
+            if (wvRssLink.CanGoForward) {
+                wvRssLink.GoForward();
+            }
+        }
+
+        //ブラウザバック
+        private void btBack_Click(object sender, EventArgs e) {
+            if (wvRssLink.CanGoBack) {
+                wvRssLink.GoBack();
+            }
         }
     }
 }
