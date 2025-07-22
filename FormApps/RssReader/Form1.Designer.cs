@@ -23,7 +23,7 @@
         ///  the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            tbUrl = new TextBox();
+            cbUrl = new ComboBox();
             btRssGet = new Button();
             lbTitles = new ListBox();
             wvRssLink = new Microsoft.Web.WebView2.WinForms.WebView2();
@@ -32,13 +32,13 @@
             ((System.ComponentModel.ISupportInitialize)wvRssLink).BeginInit();
             SuspendLayout();
             // 
-            // tbUrl
+            // cbUrl
             // 
-            tbUrl.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            tbUrl.Location = new Point(174, 13);
-            tbUrl.Name = "tbUrl";
-            tbUrl.Size = new Size(731, 33);
-            tbUrl.TabIndex = 0;
+            cbUrl.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            cbUrl.Location = new Point(174, 13);
+            cbUrl.Name = "cbUrl";
+            cbUrl.Size = new Size(731, 33);
+            cbUrl.TabIndex = 0;
             // 
             // btRssGet
             // 
@@ -64,17 +64,19 @@
             lbTitles.TabIndex = 2;
             lbTitles.Click += lbTitles_Click;
             // 
-            // webView21
+            // wvRssLink
             // 
             wvRssLink.AllowExternalDrop = true;
             wvRssLink.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             wvRssLink.CreationProperties = null;
             wvRssLink.DefaultBackgroundColor = Color.White;
             wvRssLink.Location = new Point(12, 178);
-            wvRssLink.Name = "webView21";
+            wvRssLink.Name = "wvRssLink";
             wvRssLink.Size = new Size(974, 408);
             wvRssLink.TabIndex = 3;
             wvRssLink.ZoomFactor = 1D;
+            wvRssLink.NavigationCompleted += wvRssLink_NavigationCompleted;
+            wvRssLink.SourceChanged += wvRssLink_SourceChanged;
             // 
             // btBack
             // 
@@ -108,17 +110,17 @@
             Controls.Add(wvRssLink);
             Controls.Add(lbTitles);
             Controls.Add(btRssGet);
-            Controls.Add(tbUrl);
+            Controls.Add(cbUrl);
             Name = "Form1";
             Text = "RSSリーダー";
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)wvRssLink).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private TextBox tbUrl;
+        private ComboBox cbUrl;
         private Button btRssGet;
         private ListBox lbTitles;
         private Microsoft.Web.WebView2.WinForms.WebView2 wvRssLink;
