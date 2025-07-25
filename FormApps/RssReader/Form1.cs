@@ -148,7 +148,7 @@ namespace RssReader {
                 return;
             }
 
-    rssUrlDict.Remove(cbUrl.SelectedItem.ToString());
+            rssUrlDict.Remove(cbUrl.SelectedItem.ToString());
             cbUrl.DataSource = rssUrlDict.Select(k => k.Key).ToList();
             tsslbMessage.Text = "íœ‚µ‚Ü‚µ‚½";
 
