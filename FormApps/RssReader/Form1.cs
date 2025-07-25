@@ -132,6 +132,7 @@ namespace RssReader {
                 return;
             }
 
+            //ƒRƒ“ƒ{ƒ{ƒbƒNƒX‚Ö“o˜^
             rssUrlDict.Add(tbTitle.Text, cbUrl.Text);
             cbUrl.DataSource = rssUrlDict.Select(k => k.Key).ToList();
             tsslbMessage.Text = "“o˜^‚µ‚Ü‚µ‚½";
