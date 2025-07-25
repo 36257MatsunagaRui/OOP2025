@@ -201,8 +201,8 @@ namespace RssReader {
 
             //偶数行
             if (e.Index % 2 == 1) {
-                backgroundColor = Color.LightBlue; // 偶数行の背景色
-                textColor = Color.Black; // 偶数行のテキスト色
+                backgroundColor = Color.LightBlue; //偶数行の背景色
+                textColor = Color.Black; //偶数行のテキスト色
             } else {
                 //奇数行
                 backgroundColor = Color.White; // 奇数行の背景色
@@ -232,7 +232,7 @@ namespace RssReader {
                 e.Graphics.DrawString(itemText, e.Font, textBrush, e.Bounds, sf);
             }
 
-            // フォーカスがある場合、フォーカス四角形を描画
+            //フォーカスがある場合、フォーカス四角形を描画
             e.DrawFocusRectangle();
 
 
@@ -242,13 +242,13 @@ namespace RssReader {
             var sts = e.State;                                                      //セルの状態
             var fnt = e.Font;                                                       //フォント
             var _bnd = e.Bounds;                                                    //描画範囲(オリジナル)
-            var bnd = new RectangleF(_bnd.X, _bnd.Y, _bnd.Width, _bnd.Height);     //描画範囲(描画用)
+            var bnd = new RectangleF(_bnd.X, _bnd.Y, _bnd.Width, _bnd.Height);      //描画範囲(描画用)
             var txt = (string)lbTitles.Items[idx];                                  //リストボックス内の文字
             var bsh = new SolidBrush(lbTitles.ForeColor);                           //文字色
             var sel = (DrawItemState.Selected == (sts & DrawItemState.Selected));   //選択行か
             var odd = (idx % 2 == 1);                                               //奇数行か
-            var fore = Brushes.WhiteSmoke;                                         //偶数行の背景色
-            var bak = Brushes.AliceBlue;                                           //奇数行の背景色
+            var fore = Brushes.WhiteSmoke;                                          //偶数行の背景色
+            var bak = Brushes.AliceBlue;                                            //奇数行の背景色
 
             e.DrawBackground();                                                     //背景描画
 
