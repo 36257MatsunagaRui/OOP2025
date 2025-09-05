@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SampleApplication"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="350" FontSize="14">
+        Title="SampleApplication" Height="300" Width="350" FontSize="14">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
