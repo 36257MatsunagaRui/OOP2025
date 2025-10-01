@@ -1,0 +1,25 @@
+﻿<Window x:Class="ConverterApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConverterApp"
+        mc:Ignorable="d"
+        Title="ConverterApp" SizeToContent="WidthAndHeight">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBox Name="MetricValue" Width="100" Margin="4"/>
+            <ComboBox Name="MetricUnit" Width="80" Margin="4"/>
+        </StackPanel>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="ImperialUnitToMetric" Width="40" Content="▲" Margin="4"/>
+            <Button Name="MetricToImperialUnit" Width="40" Content="▼" Margin="4"/>
+        </StackPanel>
+        
+        <StackPanel Orientation="Horizontal">
+            <TextBox Name="ImperialValue" Width="100" Margin="4"/>
+            <ComboBox Name="ImperialUnit" Width="80" Margin="4"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
