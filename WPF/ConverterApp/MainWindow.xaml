@@ -9,17 +9,17 @@
     <StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBox Name="MetricValue" Width="100" Margin="4"/>
-            <ComboBox Name="MetricUnit" Width="80" Margin="4"/>
+            <ComboBox Name="MetricUnit" Width="80" Margin="4" ItemsSource="{Binding UnitNames}" SelectedIndex="0"/>
         </StackPanel>
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="ImperialUnitToMetric" Width="40" Content="▲" Margin="4"/>
-            <Button Name="MetricToImperialUnit" Width="40" Content="▼" Margin="4"/>
+            <Button Name="ImperialUnitToMetric" Width="40" Content="▲" Margin="4" Click="ImperialUnitToMetric_Click"/>
+            <Button Name="MetricToImperialUnit" Width="40" Content="▼" Margin="4" Click="MetricToImperialUnit_Click"/>
         </StackPanel>
         
         <StackPanel Orientation="Horizontal">
             <TextBox Name="ImperialValue" Width="100" Margin="4"/>
-            <ComboBox Name="ImperialUnit" Width="80" Margin="4"/>
+            <ComboBox Name="ImperialUnit" Width="80" Margin="4" ItemsSource="{Binding UnitNames}" SelectedIndex="0"/>
         </StackPanel>
     </StackPanel>
 </Window>
