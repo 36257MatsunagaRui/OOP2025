@@ -10,17 +10,13 @@ namespace HelloWorld
     class ViewModel : BindableBase
     {
         public ViewModel() {
-            ChangeMessageCommand = new DelegateCommand<string>((par) => GreetingMessage = par);
+            ChangeMessageCommand = new DelegateCommand<string>((par) => GreetingMessage = par, (par) => GreetingMessage != par).ObservesProperty(() => GreetingMessage);
         }
 
         private string _greetingMessage = "नमस्ते";
         public string GreetingMessage {
             get => _greetingMessage;
-            set {
-                    if (SetProperty(ref _greetingMessage, value)) {
-                        CanChangeMessage = false;
-                    }
-            }
+            set => SetProperty(ref _greetingMessage, value);
         }
 
         private bool _canChangeMessage = true;
