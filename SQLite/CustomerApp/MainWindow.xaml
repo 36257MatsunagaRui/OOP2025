@@ -1,0 +1,61 @@
+﻿<Window x:Class="CustomerApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CustomerApp"
+        mc:Ignorable="d"
+        Title="顧客管理アプリケーション" Height="750" Width="950"
+        FontSize="16" Background="LemonChiffon">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="330"/>
+            </Grid.ColumnDefinitions>
+
+            <DataGrid x:Name="CustomerDataGrid" Grid.Column="0" AutoGenerateColumns="False"
+                      SelectedItem="{Binding SelectedCustomer}" SelectionChanged="CustomerDataGrid_SelectionChanged"
+                      Margin="0,0,10,0" RowHeight="80" HeadersVisibility="Column" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="名前" Binding="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" FontWeight="Black"/>
+                    <DataGridTextColumn Header="電話番号" Binding="{Binding Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" Foreground="MediumBlue"/>
+                    <DataGridTextColumn Header="住所" Binding="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" Foreground="ForestGreen"/>
+                    <DataGridTemplateColumn Header="画像" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Picture}" Width="100" Height="90" Stretch="Uniform"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Grid.Column="1" Margin="0">
+                <TextBlock Text="名前:"/>
+                <TextBox x:Name="NameTextBox" Margin="0,0,0,10" TextChanged="InputTextBox_TextChanged"/>
+
+                <TextBlock Text="電話番号:"/>
+                <TextBox x:Name="PhoneTextBox" Margin="0,0,0,10" TextChanged="InputTextBox_TextChanged"/>
+
+                <TextBlock Text="住所:"/>
+                <TextBox x:Name="AddressTextBox" Margin="0,0,0,10" TextChanged="InputTextBox_TextChanged"/>
+
+                <TextBlock Text="画像:"/>
+                <Image x:Name="CustomerImage" Height="200" Stretch="Uniform" Margin="0,5"/>
+                <Button Content="画像を選択" x:Name="ImageButton" Click="ImageButton_Click" Margin="15,0,15,20" Height="40"/>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+                    <Button Content="SAVE" x:Name="AddButton" Click="AddButton_Click" Height="40" Margin="15,0,15,10" FontSize="26" Background="LightSalmon"/>
+                    <Button Content="UPDATE" x:Name="UpdateButton" Click="UpdateButton_Click" Height="40" Margin="15,0,15,10" Background="LightGreen" FontSize="26"/>
+                    <Button Content="DELETE" x:Name="DeleteButton" Click="DeleteButton_Click" Height="40" Margin="15,0,15,0" Background="Linen" FontSize="26"/>
+                    <Button Content="NEW" x:Name="NewButton" Click="NewButton_Click" Height="40" Margin="15, 10, 0, 0" HorizontalAlignment="Left" Background="LightPink"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
