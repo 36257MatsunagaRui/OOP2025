@@ -1,6 +1,7 @@
 ﻿using CustomerApp.Data;
 using Microsoft.Win32;
 using SQLite;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -20,10 +21,12 @@ namespace CustomerApp;
 /// </summary>
 public partial class MainWindow : Window {
     private List<Customer> _customer = new List<Customer>();
+    private ICollectionView _customerView;
 
     public MainWindow() {
         InitializeComponent();
         ReadDatabase();
+        _customerView = CollectionViewSource.GetDefaultView(_customer);
         CustomerDataGrid.ItemsSource = _customer;
         Control();
     }
@@ -31,7 +34,9 @@ public partial class MainWindow : Window {
     private void ReadDatabase() {
         using (var connection = new SQLiteConnection(App.databasePath)) {
             connection.CreateTable<Customer>();
-            _customer = connection.Table<Customer>().ToList();
+            _customer.Clear();
+            var allCustomers = connection.Table<Customer>().ToList();
+            _customer.AddRange(allCustomers);
         }
     }
 
@@ -67,20 +72,27 @@ public partial class MainWindow : Window {
         var selectedCustomer = CustomerDataGrid.SelectedItem as Customer;
         if (selectedCustomer is null) return;
 
+        var customerToUpdate = new Customer() {
+            Id = selectedCustomer.Id,
+            Name = NameTextBox.Text,
+            Phone = PhoneTextBox.Text,
+            Address = AddressTextBox.Text,
+
+            Picture = _tempImageBytes ?? selectedCustomer.Picture
+        };
+
         using (var connection = new SQLiteConnection(App.databasePath)) {
             connection.CreateTable<Customer>();
 
-            var customer = new Customer() {
-                Id = selectedCustomer.Id,
-                Name = NameTextBox.Text,
-                Phone = PhoneTextBox.Text,
-                Address = AddressTextBox.Text,
-                Picture = selectedCustomer.Picture
-            };
+            connection.Update(customerToUpdate);
 
-            connection.Update(customer);
             ReadDatabase();
+            CustomerDataGrid.ItemsSource = _customer;
+
+            CustomerDataGrid.SelectedItem = _customer.FirstOrDefault(c => c.Id == customerToUpdate.Id);
+            Refresh();
             Clean();
+            Control();
         }
     }
 
@@ -103,6 +115,7 @@ public partial class MainWindow : Window {
             ReadDatabase();
             CustomerDataGrid.ItemsSource = _customer;
             CustomerDataGrid.SelectedItem = _customer.FirstOrDefault(c => c.Id == customer.Id);
+            Refresh();
             Clean();
             Control();
         }
@@ -125,13 +138,28 @@ public partial class MainWindow : Window {
             CustomerDataGrid.ItemsSource = _customer;
         }
 
+        Refresh();
         Clean();
         Control();
     }
 
     private void CustomerDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e) {
         var selectedCustomer = CustomerDataGrid.SelectedItem as Customer;
-        if (selectedCustomer is null) return;
+
+        if (_customerView != null) {
+            _customerView.Filter = null;
+        }
+
+        if (selectedCustomer is null) {
+            Clean();
+            Control();
+
+            if (_customerView != null) {
+                _customerView.Filter = CustomerFilter;
+            }
+
+            return;
+        }
 
         NameTextBox.Text = selectedCustomer.Name;
         PhoneTextBox.Text = selectedCustomer.Phone;
@@ -140,13 +168,15 @@ public partial class MainWindow : Window {
         if (selectedCustomer.Picture != null && selectedCustomer.Picture.Length > 0) {
             CustomerImage.Source = ByteArrayToBitmapImage(selectedCustomer.Picture);
         } else {
-            // 画像データがない場合はクリア
             CustomerImage.Source = null;
+        }
+
+        if (_customerView != null) {
+            _customerView.Filter = CustomerFilter;
         }
 
         Control();
     }
-
     private BitmapImage ByteArrayToBitmapImage(byte[] imageData) {
         if (imageData == null || imageData.Length == 0) return null;
 
@@ -182,20 +212,39 @@ public partial class MainWindow : Window {
                        !string.IsNullOrWhiteSpace(AddressTextBox.Text);
 
         DeleteButton.IsEnabled = isSelected;
-
         UpdateButton.IsEnabled = isSelected && hasText;
-
-        // SAVEボタン: 
-        AddButton.IsEnabled = hasText;
+        AddButton.IsEnabled = hasText && !isSelected;
     }
 
 
     private void InputTextBox_TextChanged(object sender, TextChangedEventArgs e) {
         Control();
+
+        if (_customerView != null) {
+            _customerView.Filter = CustomerFilter;
+            _customerView.Refresh();
+        }
     }
 
     private void NewButton_Click(object sender, RoutedEventArgs e) {
         Clean();
         Control();
+    }
+
+    private void Refresh() {
+        CustomerDataGrid.ItemsSource = null;
+        CustomerDataGrid.ItemsSource = _customer;
+        CustomerDataGrid.Items.Refresh();
+    }
+
+    private bool CustomerFilter(object item) {
+        if (string.IsNullOrEmpty(NameTextBox.Text)) {
+            return true;
+        }
+
+        var customer = item as Customer;
+        if (customer == null) return false;
+
+        return customer.Name.IndexOf(NameTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
     }
 }
