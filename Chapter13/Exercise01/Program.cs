@@ -64,24 +64,44 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_6() {
-            var groups = Library.Categories
-                .OrderBy(c => c.Name)
-                .GroupJoin(Library.Books,
-                    c => c.Id,
-                    b => b.CategoryId,
-                    (c, books) => new { Category = c.Name, Books = books }
-                );
+            var groups = Library.Books
+                .Join(Library.Categories,
+                        b => b.CategoryId,
+                        c => c.Id,
+                        (b, c) => new {
+                            CategoryName = c.Name,
+                            b.Title
+                        })
+                .GroupBy(x => x.CategoryName)
+                .OrderBy(x => x.Key);
 
             foreach (var group in groups) {
-                Console.WriteLine($"# {group.Category}");
-                foreach (var book in group.Books) {
+                Console.WriteLine($"# {group.Key}");
+                foreach (var book in group) {
                     Console.WriteLine($"   {book.Title}");
                 }
             }
         }
 
         private static void Exercise1_7() {
+            var groups = Library.Categories
+                .Where(x => x.Name.Equals("Development"))
+                .Join(Library.Books,
+                        c => c.Id,
+                        b => b.CategoryId,
+                        (c, book) => new {
+                            book.Title,
+                            book.PublishedYear
+                        })
+                .GroupBy(x => x.PublishedYear)
+                .OrderBy(x => x.Key);
 
+            foreach (var group in groups) {
+                Console.WriteLine($"# {group.Key}");
+                foreach (var book in group) {
+                    Console.WriteLine($"   {book.Title}");
+                }
+            }
         }
 
         private static void Exercise1_8() {
