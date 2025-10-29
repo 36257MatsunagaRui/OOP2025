@@ -26,7 +26,16 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_3() {
+            var selected = Library.Books
+                .GroupBy(b => b.PublishedYear)
+                .Select(b => new {
+                    PublishedYear = b.Key,
+                    Count = b.Count()
+                });
 
+            foreach (var book in selected) {
+                Console.WriteLine($"{book.PublishedYear}年:{book.Count}");
+            }
         }
 
         private static void Exercise1_4() {
