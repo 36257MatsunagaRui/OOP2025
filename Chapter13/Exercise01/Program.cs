@@ -26,20 +26,28 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_3() {
-            var selected = Library.Books
+            var results = Library.Books
                 .GroupBy(b => b.PublishedYear)
+                .OrderBy(b => b.Key)
                 .Select(b => new {
                     PublishedYear = b.Key,
                     Count = b.Count()
                 });
 
-            foreach (var book in selected) {
+            foreach (var book in results) {
                 Console.WriteLine($"{book.PublishedYear}年:{book.Count}");
             }
         }
 
         private static void Exercise1_4() {
+            var books = Library.Books
+                .OrderByDescending(b => b.PublishedYear)
+                .ThenByDescending(b => b.Price)
+                .ThenBy(b => b.Title);
 
+            foreach (var book in books) {
+                Console.WriteLine($"{book.PublishedYear}年 {book.Price}円 {book.Title}");
+            }
         }
 
         private static void Exercise1_5() {
