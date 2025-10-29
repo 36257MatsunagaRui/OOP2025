@@ -42,8 +42,7 @@ namespace Exercise01 {
         private static void Exercise1_4() {
             var books = Library.Books
                 .OrderByDescending(b => b.PublishedYear)
-                .ThenByDescending(b => b.Price)
-                .ThenBy(b => b.Title);
+                .ThenByDescending(b => b.Price);
 
             foreach (var book in books) {
                 Console.WriteLine($"{book.PublishedYear}年 {book.Price}円 {book.Title}");
@@ -51,7 +50,17 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_5() {
+            var names = Library.Books
+                .Where(b => b.PublishedYear == 2022)
+                .Join(Library.Categories,
+                    book => book.CategoryId,
+                    category => category.Id,
+                    (book, category) => category.Name)
+                .Distinct();
 
+            foreach(var name in names) {
+                Console.WriteLine(name);
+            }
         }
 
         private static void Exercise1_6() {
