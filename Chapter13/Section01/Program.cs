@@ -30,6 +30,8 @@
                 Console.WriteLine($"{book!.PublishedYear}年 {book!.Title} ({book!.Price})");
             }
 
+            Console.WriteLine();
+
             var books = Library.Books
                 .Join(Library.Categories,
                     book => book.CategoryId,
@@ -45,6 +47,25 @@
 
             foreach (var book in books) {
                 Console.WriteLine($"{book.Title}, {book.Category}, {book.PublishedYear}");
+            }
+
+            Console.WriteLine();
+
+            var groups = Library.Categories
+                .GroupJoin(Library.Books,
+                        c => c.Id,
+                        b => b.CategoryId,
+                        (c, books) => new {
+                            Category = c.Name,
+                            Books = books,
+                        }
+                );
+
+            foreach (var group in groups) {
+                Console.WriteLine(group.Category);
+                foreach (var book in group.Books) {
+                    Console.WriteLine($"  {book.Title} ({book.PublishedYear}年)");
+                }
             }
         }
     }
