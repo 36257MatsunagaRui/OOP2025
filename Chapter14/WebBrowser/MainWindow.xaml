@@ -20,6 +20,10 @@
             <TextBox x:Name="AddressBar" Width="450" Margin="0,0,5,0" VerticalAlignment="Center"/>
             <Button Content="移動" Width="60" Click="GoButton_Click"/>
         </DockPanel>
+
+        <!--プログレスバー-->
+        <ProgressBar x:Name="LoadingBar" Grid.Row="1" Height="4" Margin="5,0,5,5" Minimum="0" Maximum="100" Visibility="Collapsed" IsIndeterminate="True" Foreground="DeepSkyBlue"/>
+
         <!--ブラウザ-->
         <Wpf:WebView2 x:Name="Webview" Margin="5" Grid.Row="2"/>
     </Grid>
