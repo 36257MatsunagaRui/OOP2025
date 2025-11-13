@@ -29,4 +29,3 @@ namespace TextFileProcessor {
         protected virtual void Terminate() { }
     }
 }
-//aaa aaa aaa
