@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace TextFileProcessor {
     public abstract class TextProcessor {
@@ -13,7 +15,8 @@ namespace TextFileProcessor {
 
         private void Process(string fileName) {
             Initialize(fileName);
-            var lines  = File.ReadAllLines(fileName);
+            var lines = File.ReadAllLines(fileName);
+
             foreach (var line in lines) {
                 Execute(line);
             }
@@ -26,3 +29,4 @@ namespace TextFileProcessor {
         protected virtual void Terminate() { }
     }
 }
+//aaa aaa aaa
