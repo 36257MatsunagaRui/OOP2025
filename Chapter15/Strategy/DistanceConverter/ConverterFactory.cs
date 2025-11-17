@@ -12,6 +12,8 @@ namespace DistanceConverter {
             new FeetConverter(),
             new InchConverter(),
             new YardConverter(),
+            new MileConverter(),
+            new KiloMeterConverter(),
         };
 
         public static ConverterBase? GetInstance(string name) =>
