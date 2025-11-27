@@ -1,0 +1,192 @@
+﻿<Window x:Class="TenkiApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TenkiApp" Height="900" Width="880"
+        FontFamily="Yu Gothic UI" FontSize="14"
+        MinWidth="800" MinHeight="700">
+
+    <Window.Background>
+        <LinearGradientBrush x:Name="WindowGradient" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#FFF0F8FF" Offset="0"/>
+            <GradientStop Color="#FFFFFFFF" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 入力エリア -->
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- 左：おしゃれな場所選択カード -->
+            <Border Grid.Column="0"
+                    Background="White" CornerRadius="15" Padding="15"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    BorderBrush="#DDD" BorderThickness="1"
+                    Width="300">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" Opacity="0.15"
+                                      BlurRadius="15" ShadowDepth="4"/>
+                </Border.Effect>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <!-- タイトル -->
+                    <TextBlock Text="📍 場所選択"
+                               FontSize="18" FontWeight="Bold"
+                               Margin="0,0,0,10" HorizontalAlignment="Center"/>
+
+                    <!-- ComboBox -->
+                    <ComboBox x:Name="PrefectureComboBox" Width="200" FontSize="16"
+                              Background="Transparent" Foreground="#333" Padding="5"
+                              SelectionChanged="PrefectureComboBox_SelectionChanged"/>
+                </StackPanel>
+            </Border>
+
+            <!-- 右：お気に入りカード型パネル -->
+            <Border Grid.Column="1"
+                    Background="White"
+                    CornerRadius="15"
+                    Padding="15"
+                    Width="300"
+                    HorizontalAlignment="Center">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" Opacity="0.15"
+                                      BlurRadius="15" ShadowDepth="4"/>
+                </Border.Effect>
+
+                <StackPanel Orientation="Vertical">
+                    <!-- タイトル -->
+                    <TextBlock Text="⭐ お気に入り一覧" 
+                               FontSize="18" FontWeight="Bold" 
+                               Margin="0,0,0,10"/>
+
+                    <!-- ComboBox + トグル + 表示ボタン 横並び -->
+                    <StackPanel Orientation="Horizontal">
+                        <Border CornerRadius="5" Background="#F5F5F5" BorderBrush="#CCC" BorderThickness="1">
+                            <ComboBox x:Name="FavoriteComboBox" Width="140" FontSize="16"
+                                      Background="Transparent" Foreground="#333" Padding="5"/>
+                        </Border>
+
+                        <Button x:Name="ToggleFavoriteButton" Content="⭐ トグル" 
+                                Click="ToggleFavoriteButton_Click"
+                                Padding="5,3" FontSize="14" 
+                                Background="#FFC107" Foreground="White" Cursor="Hand"
+                                Margin="5,0,0,0"/>
+
+                        <Button Content="表示" Click="ShowFavoriteButton_Click"
+                                Padding="5,3" FontSize="14"
+                                Background="#2196F3" Foreground="White" Cursor="Hand"
+                                Margin="5,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- 現在天気カード -->
+        <Border Grid.Row="1" Background="White" CornerRadius="15"
+                Padding="30" Margin="0,0,0,25">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" Opacity="0.2"
+                                  BlurRadius="15" ShadowDepth="4"/>
+            </Border.Effect>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- 左：天気情報 -->
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock x:Name="CurrentWeatherIcon" Text="❔"
+                                   FontSize="110" HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="TemperatureLabel" Text="--.- °C"
+                                   FontSize="62" FontWeight="Bold"
+                                   Foreground="#FF5722" HorizontalAlignment="Center"
+                                   Margin="0,5"/>
+                        <TextBlock x:Name="WeatherDescriptionLabel" Text="---"
+                                   FontSize="22" FontWeight="SemiBold" 
+                                   HorizontalAlignment="Center" Margin="0,10"/>
+                    </StackPanel>
+
+                    <!-- 右：都道府県名・時刻・日付・風情報 -->
+                    <StackPanel Grid.Column="1" Margin="20,0,0,0" VerticalAlignment="Center">
+                        <TextBlock x:Name="PrefectureLabel" Text="---"
+                                   FontSize="26" FontWeight="Bold" Margin="0,5"/>
+                        <TextBlock x:Name="CurrentTimeLabel" Text="--:--"
+                                   FontSize="50" FontWeight="SemiBold" Margin="0,5"/>
+                        <TextBlock x:Name="CurrentDateLabel" Text="---"
+                                   FontSize="20" Margin="0,0,0,20"/>
+                        <TextBlock x:Name="WindLabel" Text="風速: --- m/s / 風向: ---°"
+                                   FontSize="18" Margin="0,5"/>
+                        <TextBlock x:Name="PrecipitationLabel" Text="降水量: --- mm"
+                                   FontSize="18" Margin="0,5"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- 下段：天気ヒント -->
+                <TextBlock x:Name="WeatherTipLabel"
+                           Grid.Row="1"
+                           FontSize="14" Foreground="Gray"
+                           Margin="10,25,10,0" TextAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <!-- 週間天気 -->
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <ItemsControl x:Name="WeeklyWeatherPanel" Margin="0,0,0,10">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border CornerRadius="15" Padding="20" Margin="5" Width="200" Height="220"
+                                Background="{Binding BackgroundColor}">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" Opacity="0.2"
+                                                  BlurRadius="10" ShadowDepth="3"/>
+                            </Border.Effect>
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Date}"
+                                           FontWeight="Bold" FontSize="16" TextAlignment="Center"/>
+                                <!-- 曜日の表示 -->
+                                <TextBlock Text="{Binding DayOfWeek}"
+                                           FontSize="14" Foreground="Gray" TextAlignment="Center"/>
+                                <TextBlock Text="{Binding WeatherIcon}" FontSize="40"
+                                           Margin="0,5,0,5" TextAlignment="Center"/>
+                                <TextBlock Text="{Binding Weather}" FontSize="16" TextAlignment="Center"/>
+                                <TextBlock Text="{Binding Temp}" FontSize="14"
+                                           TextAlignment="Center" Margin="0,5,0,0"/>
+                                <TextBlock Text="{Binding Wind}" FontSize="14"
+                                           TextAlignment="Center" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- ステータス -->
+        <TextBlock x:Name="StatusLabel" Grid.Row="3"
+                   Text="都道府県を選択してください。"
+                   FontSize="14" Foreground="Gray"
+                   HorizontalAlignment="Center" Margin="0,10,0,0"/>
+    </Grid>
+</Window>
